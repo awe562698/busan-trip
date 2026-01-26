@@ -6,9 +6,8 @@
     <title>釜山自由行 7天6夜行程表</title>
     <style>
         body {
-            /* 請確保 GitHub 上的圖片檔名與此處 url 內的名稱完全相同 */
-            background-image: url('busan-bg.jpg'); 
-            background-attachment: fixed; /* 背景固定不捲動 */
+            background-image: url('busan-bg.jpg'); /* 請確保此圖片已上傳且檔名正確 */
+            background-attachment: fixed;
             background-size: cover;
             background-position: center;
             font-family: "Microsoft JhengHei", sans-serif;
@@ -17,7 +16,7 @@
         }
 
         .overlay {
-            background: rgba(0, 0, 0, 0.2); /* 讓背景稍微變暗以提升文字可讀性 */
+            background: rgba(0, 0, 0, 0.2);
             min-height: 100vh;
             padding: 40px 20px;
         }
@@ -36,7 +35,6 @@
         }
 
         section {
-            /* 透明度設定，可看見背景 */
             background: rgba(255, 255, 255, 0.88); 
             margin-bottom: 30px;
             padding: 30px;
@@ -56,6 +54,19 @@
         .time { color: #7f8c8d; font-weight: bold; margin-right: 8px; font-size: 0.9em; }
         .highlight { color: #e67e22; font-weight: bold; }
         .transport { color: #2980b9; font-size: 0.9em; font-style: italic; }
+
+        /* 新增的圖片樣式 */
+        .spot-img {
+            max-width: 100%; /* 圖片寬度不超過容器 */
+            height: auto; /* 高度自動調整 */
+            border-radius: 10px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: block; /* 讓圖片獨佔一行 */
+            margin-left: auto;
+            margin-right: auto;
+        }
     </style>
 </head>
 <body>
@@ -65,83 +76,100 @@
         <div class="container">
             <section>
                 <h2>釜山介紹</h2>
-                <p>釜山是南韓第一大港口城市，擁有絕美海景與豐富美食。本行程專為老人與小孩設計，兼顧舒適與精彩景點，包含海雲台、機張、南浦洞及影島等熱門區域 [cite: 2, 6, 26, 57]。</p>
-            </section>
+                <p>釜山是南韓第一大港口城市，擁有絕美海景與豐富美食。本行程專為老人與小孩設計，兼顧舒適與精彩景點，包含海雲台、機張、南浦洞及影島等熱門區域。</p>
+                <img src="busan-overview.jpg" alt="釜山總覽圖" class="spot-img"> </section>
 
             <section>
                 <h2>行前準備</h2>
                 <ul>
-                    <li><span class="highlight">航班：</span>高雄-釜山 (17:05-20:35) / 釜山-高雄 (12:00-14:00) </li>
-                    <li><span class="highlight">工具：</span>Naver Map、Kakao T (叫車)、海雲台天空膠囊預約</li>
-                    <li><span class="highlight">提醒：</span>下載 T-Money 儲值卡 App </li>
+                    [cite_start]<li><span class="highlight">航班：</span>高雄-釜山 (17:05-20:35) / 釜山-高雄 (12:00-14:00) [cite: 1]</li>
+                    [cite_start]<li><span class="highlight">工具：</span>Naver Map、papago、Kakao T (叫車)、海雲台天空膠囊預約 [cite: 10]</li>
+                    <li><span class="highlight">提醒：</span>下載 T-Money 儲值卡 App</li>
                 </ul>
             </section>
 
             <section>
                 <h2>第一天：抵達與海雲台</h2>
                 <ul>
-                    <li>入住海雲台飯店 [cite: 2]</li>
-                    <li><span class="time">晚餐：</span>海雲台傳統市場 或 水邊最高豬肉湯飯</li>
-                    <li><span class="time">逛街：</span>OLIVE YOUNG (至23:00)、大創 (至22:00) 下手冷靜後面還有很多天</li>
+                    [cite_start]<li>入住海雲台飯店 [cite: 2]</li>
+                    <li><img src="haeundae-hotel.jpg" alt="海雲台飯店" class="spot-img"></li> [cite_start]<li><span class="time">晚餐：</span>海雲台傳統市場 或 水邊最高豬肉湯飯 [cite: 3]</li>
+                    <li><img src="haeundae-market.jpg" alt="海雲台傳統市場" class="spot-img"></li> [cite_start]<li><span class="time">逛街：</span>OLIVE YOUNG (至23:00)、大創 (至22:00) [cite: 4]</li>
                 </ul>
             </section>
 
             <section>
                 <h2>第二天：海岸線之旅</h2>
                 <ul>
-                    <li><span class="time">09:30</span> 搭乘天空膠囊 (尾浦 ➔ 青沙浦)</li>
-                    <li><span class="time">10:00</span> 青沙浦收集：平交道、雙胞胎燈塔、踏石展望台</li>
-                    <li><span class="time">10:30</span> 海岸列車 (青沙浦 ➔ 松亭) </li>
-                    <li><span class="time">12:30</span> 海東龍宮寺 (含午餐) </li>
-                    <li><span class="time">14:00</span> Skyline Luge 斜坡滑車 </li>
-                    <li><span class="time">16:00</span> 樂天世界冒險樂園 或 Outlet (晚餐) </li>
-                    <li><span class="time">20:00</span> Busan X the SKY 看夜景 ➔ 宵夜炸雞</li>
+                    [cite_start]<li><span class="time">09:30</span> 搭乘天空膠囊 (尾浦 ➔ 青沙浦)</li>
+                    <li><img src="sky-capsule.jpg" alt="天空膠囊" class="spot-img"></li>
+                    [cite_start]<li><span class="time">10:00</span> 青沙浦收集：平交道、雙胞胎燈塔、踏石展望台 </li>
+                    <li><img src="cheongsapo.jpg" alt="青沙浦" class="spot-img"></li>
+                    [cite_start]<li><span class="time">12:30</span> 海東龍宮寺 (含午餐) </li>
+                    <li><img src="yonggungsa.jpg" alt="海東龍宮寺" class="spot-img"></li>
+                    [cite_start]<li><span class="time">14:00</span> Skyline Luge 斜坡滑車 </li>
+                    <li><img src="skyline-luge.jpg" alt="Skyline Luge" class="spot-img"></li>
+                    [cite_start]<li><span class="time">16:00</span> 樂天世界冒險樂園 或 Outlet (晚餐) </li>
+                    <li><img src="lotte-world.jpg" alt="樂天世界" class="spot-img"></li>
+                    [cite_start]<li><span class="time">20:00</span> Busan X the SKY 看夜景</li>
+                    <li><img src="busan-x-sky.jpg" alt="Busan X the SKY" class="spot-img"></li>
                 </ul>
             </section>
 
             <section>
                 <h2>第三天：SPA與遊艇派對</h2>
                 <ul>
-                    <li>SEA LIFE 釜山水族館 ➔ 新世界 SPA LAND 汗蒸幕 </li>
-                    <li>Nasari 食堂海景餐廳 (廣安里) </li>
-                    <li><span class="highlight">必看：</span>廣安里海水浴場 ➔ 搭遊艇看煙火無人機秀</li>
+                    [cite_start]<li>SEA LIFE 釜山水族館 ➔ 新世界 SPA LAND 汗蒸幕</li>
+                    <li><img src="spa-land.jpg" alt="SPA LAND" class="spot-img"></li>
+                    [cite_start]<li><span class="highlight">必看：</span>廣安里海水浴場 ➔ 搭遊艇看煙火無人機秀</li>
+                    <li><img src="gwangalli-yacht.jpg" alt="廣安里遊艇" class="spot-img"></li>
                 </ul>
             </section>
 
             <section>
                 <h2>第四天：文化村探險</h2>
                 <ul>
-                    <li>入住南浦洞 Aventree Hotel [cite: 26]</li>
-                    <li><span class="time">09:30</span> 甘川洞文化村 (拍小王子、彩色屋頂) </li>
-                    <li><span class="time">12:30</span> 富平罐頭市場午餐</li>
-                    <li><span class="time">15:00</span> 松島海上纜車 ➔ 松島天空步道 ➔ 喝咖啡</li>
-                    <li><span class="time">18:30</span> BIFF 廣場 ➔ 釜山塔煙火秀 (19:00開始) </li>
+                    [cite_start]<li>甘川洞文化村 (拍小王子、彩色屋頂) [cite: 26, 32]</li>
+                    <li><img src="gamcheon-village.jpg" alt="甘川洞文化村" class="spot-img"></li>
+                    [cite_start]<li><span class="time">12:30</span> 富平罐頭市場午餐 </li>
+                    <li><img src="bupyeong-market.jpg" alt="富平罐頭市場" class="spot-img"></li>
+                    [cite_start]<li><span class="time">15:00</span> 松島海上纜車 ➔ 松島天空步道 </li>
+                    <li><img src="songdo-cable-car.jpg" alt="松島海上纜車" class="spot-img"></li>
+                    <li><span class="time">15:00</span> THRILL ON THE MUG! 喝咖啡</li>
+                    <img src="thrill-on-the-mug.jpg" class="spot-img">
+                    [cite_start]<li><span class="time">18:30</span> BIFF 廣場 ➔ 釜山塔煙火秀 (19:00開始) [cite: 46, 49, 50]</li>
+                    <li><img src="busan-tower.jpg" alt="釜山塔" class="spot-img"></li>
                 </ul>
             </section>
 
             <section>
-                <h2>第五天：大採購日!!!南浦洞與影島</h2>
+                <h2>第五天：南浦洞與影島</h2>
                 <ul>
-                    <li>國際市場 ➔ BIFF 廣場 (午餐) ➔ 札嘎其市場</li>
-                    <li><span class="time">15:00</span> 影島大橋 ➔ 白淺灘文化村 </li>
-                    <li>晚上前往釜山塔欣賞煙火秀</li>
+                    [cite_start]<li>國際市場 [cite: 54, 56]</li>
+                    <li><img src="international-market.jpg" alt="國際市場" class="spot-img"></li>
+                     [cite_start]<li>札嘎其市場 [cite: 54, 56]</li>
+                    <li><img src="jagalchi.jpg" alt="札嘎其市場" class="spot-img"></li>
+                    [cite_start]<li><span class="time">15:00</span> 影島大橋 ➔ 白淺灘文化村</li>
+                    <li><img src="white-village.jpg" alt="白淺灘文化村" class="spot-img"></li>
                 </ul>
             </section>
 
             <section>
                 <h2>第六天：西面購物之旅</h2>
                 <ul>
-                    <li><span class="time">10:00</span> 田浦咖啡街</li>
-                    <li>西面地下街 ➔ 西面商圈地面逛街 </li>
-                    <li><span class="time">18:00</span> 晚餐：吃韓牛</li>
+                    [cite_start]<li><span class="time">10:00</span> 田浦咖啡街 </li>
+                    <li><img src="jeonpo-cafe.jpg" alt="田浦咖啡街" class="spot-img"></li>
+                    [cite_start]<li>西面地下街 ➔ 西面商圈地面逛街</li>
+                    <li><img src="seomyeon-shopping.jpg" alt="西面商圈" class="spot-img"></li>
+                    [cite_start]<li><span class="time">18:00</span> 晚餐：吃韓牛 </li>
+                    <li><img src="hanwoo.jpg" alt="韓牛" class="spot-img"></li>
                 </ul>
             </section>
 
             <section>
                 <h2>第七天：回程賦歸</h2>
                 <ul>
-                    <li>最後整理行裝 ➔ 前往機場 [cite: 66]</li>
-                    <li><span class="highlight">航班：</span>釜山 ➔ 高雄 (12:00-14:00)</li>
+                    [cite_start]<li>最後整理行裝 ➔ 前往機場 </li>
+                    [cite_start]<li><span class="highlight">航班：</span>釜山 ➔ 高雄 (12:00-14:00) </li>
                 </ul>
             </section>
         </div>
