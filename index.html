@@ -3,182 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>釜山自由行 7天6夜行程表</title>
+    <title>釜山 7天6夜 療癒之旅</title>
     <style>
-        body {
-            background-image: url('busan-bg.jpg'); /* 請確保此圖片已上傳且檔名正確 */
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: center;
+        :root {
+            --card-bg: rgba(255, 255, 255, 0.94);
+            --primary-color: #3498db;
+            --link-bg: #27ae60;
+        }
+
+        body, html {
+            margin: 0; padding: 0; height: 100%; width: 100%;
+            overflow: hidden;
             font-family: "Microsoft JhengHei", sans-serif;
-            margin: 0;
-            padding: 0;
         }
 
-        .overlay {
-            background: rgba(0, 0, 0, 0.2);
-            min-height: 100vh;
-            padding: 40px 20px;
+        .bg-fixed {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('busan-bg.jpg');
+            background-size: cover; background-position: center;
+            z-index: -1;
         }
 
-        header {
-            text-align: center;
-            color: white;
-            text-shadow: 2px 4px 10px rgba(0,0,0,0.8);
-            font-size: 3.5em;
-            margin-bottom: 40px;
+        /* 底部導覽 */
+        .nav-bar {
+            position: fixed; bottom: 0; width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            display: flex; overflow-x: auto; padding: 12px 0;
+            box-shadow: 0 -2px 15px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .nav-bar a {
+            flex: 0 0 auto; text-decoration: none; color: #555;
+            padding: 8px 15px; margin: 0 5px; border-radius: 15px;
+            font-size: 0.85em; background: #fff; border: 1px solid #ddd;
+        }
+        .nav-bar a:active { background: var(--primary-color); color: white; }
+
+        /* 主容器 (天數左右翻頁) */
+        .slider-container {
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+            scroll-behavior: smooth; height: 100vh; width: 100vw;
+            -webkit-overflow-scrolling: touch;
         }
 
-        .container {
-            max-width: 850px;
-            margin: 0 auto;
+        .page {
+            flex: 0 0 100vw; height: 100vh; scroll-snap-align: start;
+            display: flex; justify-content: center; align-items: center;
+            box-sizing: border-box; padding-bottom: 75px;
         }
 
-        section {
-            background: rgba(255, 255, 255, 0.88); 
-            margin-bottom: 30px;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        .content-card {
+            background: var(--card-bg); width: 90%; max-width: 500px;
+            height: 85%; padding: 20px; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow-y: auto;
         }
 
-        h2 {
-            color: #2c3e50;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
+        h2 { color: var(--primary-color); border-left: 5px solid var(--primary-color); padding-left: 10px; margin: 15px 0; font-size: 1.3em; }
 
-        ul { line-height: 1.8; padding-left: 20px; list-style-type: '📍 '; }
-        li { margin-bottom: 10px; }
-        .time { color: #7f8c8d; font-weight: bold; margin-right: 8px; font-size: 0.9em; }
-        .highlight { color: #e67e22; font-weight: bold; }
-        .transport { color: #2980b9; font-size: 0.9em; font-style: italic; }
+        .spot-item { margin-bottom: 35px; border-bottom: 1px solid #eee; padding-bottom: 25px; }
+        .spot-name { font-weight: bold; font-size: 1.15em; color: #333; display: block; margin-bottom: 8px; }
+        .info-tag { font-size: 0.8em; background: #f0f0f0; padding: 3px 8px; border-radius: 5px; color: #555; margin-right: 5px; display: inline-block; margin-bottom: 5px; }
 
-        /* 新增的圖片樣式 */
-        .spot-img {
-            max-width: 100%; /* 圖片寬度不超過容器 */
-            height: auto; /* 高度自動調整 */
-            border-radius: 10px;
-            margin-top: 15px;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            display: block; /* 讓圖片獨佔一行 */
-            margin-left: auto;
-            margin-right: auto;
+        /* --- 多圖橫向滑動區 --- */
+        .photo-gallery {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 12px;
+            margin: 15px 0;
+            padding-bottom: 5px;
         }
+        .photo-gallery::-webkit-scrollbar { height: 4px; }
+        .photo-gallery::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+
+        .gallery-img {
+            flex: 0 0 85%; /* 顯示 85% 寬度，讓使用者知道右邊還有圖 */
+            scroll-snap-align: center;
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        /* ------------------ */
+
+        .ref-link {
+            display: inline-flex; align-items: center;
+            background-color: var(--link-bg); color: white;
+            text-decoration: none; padding: 8px 16px; border-radius: 50px;
+            font-size: 0.85em; margin-top: 5px;
+        }
+        .ref-link::before { content: '🔗 '; margin-right: 5px; }
+
+        .slider-container::-webkit-scrollbar, .nav-bar::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body>
-    <div class="overlay">
-        <header>釜山自由行</header>
 
-        <div class="container">
-            <section>
-                <h2>釜山介紹</h2>
-                <p>釜山是南韓第一大港口城市，擁有絕美海景與豐富美食。本行程專為老人與小孩設計，兼顧舒適與精彩景點，包含海雲台、機張、南浦洞及影島等熱門區域。</p>
-                <img src="busan-overview.jpg" alt="釜山總覽圖" class="spot-img"> </section>
+    <div class="bg-fixed"></div>
 
-            <section>
-                <h2>行前準備</h2>
-                <ul>
-                    [cite_start]<li><span class="highlight">航班：</span>高雄-釜山 (17:05-20:35) / 釜山-高雄 (12:00-14:00) [cite: 1]</li>
-                    [cite_start]<li><span class="highlight">工具：</span>Naver Map、papago、Kakao T (叫車)、海雲台天空膠囊預約 [cite: 10]</li>
-                    <li><span class="highlight">提醒：</span>下載 T-Money 儲值卡 App</li>
-                </ul>
-            </section>
+    <div class="nav-bar">
+        <a href="#day1">D1</a><a href="#day2">D2</a><a href="#day3">D3</a>
+        <a href="#day4">D4</a><a href="#day5">D5</a><a href="#day6">D6</a><a href="#day7">D7</a>
+    </div>
 
-            <section>
-                <h2>第一天：抵達與海雲台</h2>
-                <ul>
-                    [cite_start]<li>入住海雲台飯店 [cite: 2]</li>
-                    <li><img src="haeundae-hotel.jpg" alt="海雲台飯店" class="spot-img"></li> 
-                    [cite_start]<li><span class="time">晚餐：</span>海雲台傳統市場 或 水邊最高豬肉湯飯 [cite: 3]</li>
-                    <li><img src="haeundae-market.jpg" alt="海雲台傳統市場" class="spot-img"></li> 
-                    [cite_start]<li><span class="time">逛街：</span>OLIVE YOUNG (至23:00)、大創 (至22:00)</li>
-                     <li><img src="olive-young.jpg" alt="OLIVE YOUNG" class="spot-img"></li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>第二天：海岸線之旅</h2>
-                <ul>
-                    [cite_start]<li><span class="time">09:30</span> 搭乘天空膠囊 (尾浦 ➔ 青沙浦)</li>
-                    <li><img src="sky-capsule.jpg" alt="天空膠囊" class="spot-img"></li>
-                    [cite_start]<li><span class="time">10:00</span> 青沙浦收集：平交道、雙胞胎燈塔、踏石展望台 </li>
-                    <li><img src="cheongsapo.jpg" alt="青沙浦" class="spot-img"></li>
-                    [cite_start]<li><span class="time">12:30</span> 海東龍宮寺 (含午餐) </li>
-                    <li><img src="yonggungsa.jpg" alt="海東龍宮寺" class="spot-img"></li>
-                    [cite_start]<li><span class="time">14:00</span> Skyline Luge 斜坡滑車 </li>
-                    <li><img src="skyline-luge.jpg" alt="Skyline Luge" class="spot-img"></li>
-                    [cite_start]<li><span class="time">16:00</span> 樂天世界冒險樂園 或 Outlet (晚餐) </li>
-                    <li><img src="lotte-world.jpg" alt="樂天世界" class="spot-img"></li>
-                    [cite_start]<li><span class="time">20:00</span> Busan X the SKY 看夜景</li>
-                    <li><img src="busan-x-sky.jpg" alt="Busan X the SKY" class="spot-img"></li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>第三天：SPA與遊艇派對</h2>
-                <ul>
-                    [cite_start]<li>SEA LIFE 釜山水族館</li>
-                    <li><img src="sea-life.jpg" alt="SPA LAND" class="spot-img"></li>
-                    [cite_start]<li>新世界 SPA LAND 汗蒸幕</li>
-                    <li><img src="spa-land.jpg" alt="SPA LAND" class="spot-img"></li>
-                    [cite_start]<li><span class="highlight">必看：</span>廣安里海水浴場 ➔ 搭遊艇看煙火無人機秀</li>
-                    <li><img src="gwangalli-yacht.jpg" alt="廣安里遊艇" class="spot-img"></li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>第四天：文化村探險</h2>
-                <ul>
-                    [cite_start]<li>甘川洞文化村 (拍小王子、彩色屋頂) [cite: 26, 32]</li>
-                    <li><img src="gamcheon-village.jpg" alt="甘川洞文化村" class="spot-img"></li>
-                    [cite_start]<li><span class="time">12:30</span> 富平罐頭市場午餐 </li>
-                    <li><img src="bupyeong-market.jpg" alt="富平罐頭市場" class="spot-img"></li>
-                    [cite_start]<li><span class="time">15:00</span> 松島海上纜車 ➔ 松島天空步道 </li>
-                    <li><img src="songdo-cable-car.jpg" alt="松島海上纜車" class="spot-img"></li>
-                    <li><span class="time">15:00</span> THRILL ON THE MUG! 喝咖啡</li>
-                    <img src="thrill-on-the-mug.jpg" class="spot-img">
-                    [cite_start]<li><span class="time">18:30</span> BIFF 廣場 ➔ 釜山塔煙火秀 (19:00開始) [cite: 46, 49, 50]</li>
-                    <li><img src="busan-tower.jpg" alt="釜山塔" class="spot-img"></li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>第五天：南浦洞與影島</h2>
-                <ul>
-                    [cite_start]<li>國際市場 [cite: 54, 56]</li>
-                    <li><img src="international-market.jpg" alt="國際市場" class="spot-img"></li>
-                     [cite_start]<li>札嘎其市場 [cite: 54, 56]</li>
-                    <li><img src="jagalchi.jpg" alt="札嘎其市場" class="spot-img"></li>
-                    [cite_start]<li><span class="time">15:00</span> 影島大橋 ➔ 白淺灘文化村</li>
-                    <li><img src="white-village.jpg" alt="白淺灘文化村" class="spot-img"></li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>第六天：西面購物之旅</h2>
-                <ul>
-                    [cite_start]<li><span class="time">10:00</span> 田浦咖啡街 </li>
-                    <li><img src="jeonpo-cafe.jpg" alt="田浦咖啡街" class="spot-img"></li>
-                    [cite_start]<li>西面地下街 ➔ 西面商圈地面逛街</li>
-                    <li><img src="seomyeon-shopping.jpg" alt="西面商圈" class="spot-img"></li>
-                    [cite_start]<li><span class="time">18:00</span> 晚餐：吃韓牛 </li>
-                    <li><img src="hanwoo.jpg" alt="韓牛" class="spot-img"></li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>第七天：回程賦歸</h2>
-                <ul>
-                    [cite_start]<li>最後整理行裝 ➔ 前往機場 </li>
-                    [cite_start]<li><span class="highlight">航班：</span>釜山 ➔ 高雄 (12:00-14:00) </li>
-                </ul>
-            </section>
+    <div class="slider-container">
+        
+        <div class="page" id="day1">
+            <div class="content-card">
+                <h2>Day 1 抵達海雲台</h2>
+                <div class="spot-item">
+                    <span class="spot-name">海雲台傳統市場</span>
+                    <span class="info-tag">10:00-22:00</span>
+                    <div class="photo-gallery">
+                        <img src="haeundae-market-1.jpg" class="gallery-img">
+                        <img src="haeundae-market-2.jpg" class="gallery-img">
+                        <img src="haeundae-market-3.jpg" class="gallery-img">
+                    </div>
+                    <a href="https://www.visitbusan.net/zh/index.do?menuCd=DOM_000000302002001000&uc_seq=318" target="_blank" class="ref-link">市場攻略</a>
+                </div>
+            </div>
         </div>
+
+        <div class="page" id="day2">
+            <div class="content-card">
+                <h2>Day 2 青沙浦精華</h2>
+                <div class="spot-item">
+                    <span class="spot-name">青沙浦打卡三連彈</span>
+                    <span class="info-tag">平交道 / 天空步道 / 膠囊列車</span>
+                    <div class="photo-gallery">
+                        <img src="cheongsapo-crossing.jpg" class="gallery-img">
+                        <img src="cheongsapo-skywalk.jpg" class="gallery-img">
+                        <img src="cheongsapo-capsule.jpg" class="gallery-img">
+                    </div>
+                    <a href="https://www.bluelinepark.com/" target="_blank" class="ref-link">預約列車</a>
+                </div>
+                <div class="spot-item">
+                    <span class="spot-name">海東龍宮寺</span>
+                    <span class="info-tag">絕美海邊寺廟</span>
+                    <div class="photo-gallery">
+                        <img src="yonggungsa-1.jpg" class="gallery-img">
+                        <img src="yonggungsa-2.jpg" class="gallery-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="day3">
+            <div class="content-card">
+                <h2>Day 3 SPA與遊艇</h2>
+                <div class="spot-item">
+                    <span class="spot-name">新世界 SPA LAND</span>
+                    <span class="info-tag">Centum City 站</span>
+                    <div class="photo-gallery">
+                        <img src="spa-land-1.jpg" class="gallery-img">
+                        <img src="spa-land-2.jpg" class="gallery-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="day4">
+            <div class="content-card">
+                <h2>Day 4 文化村與松島</h2>
+                <div class="spot-item">
+                    <span class="spot-name">甘川洞文化村</span>
+                    <div class="photo-gallery">
+                        <img src="gamcheon-1.jpg" class="gallery-img">
+                        <img src="gamcheon-2.jpg" class="gallery-img">
+                        <img src="gamcheon-3.jpg" class="gallery-img">
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <span class="spot-name">☕ Thrill on the Mug</span>
+                    <div class="photo-gallery">
+                        <img src="thrill-on-the-mug-1.jpg" class="gallery-img">
+                        <img src="thrill-on-the-mug-2.jpg" class="gallery-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="day5">
+            <div class="content-card">
+                <h2>Day 5 影島漫步</h2>
+                <div class="spot-item">
+                    <span class="spot-name">國際市場 / 札嘎其市場</span>
+                    <div class="photo-gallery">
+                        <img src="international-market.jpg" class="gallery-img">
+                        <img src="jagalchi.jpg" class="gallery-img">
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <span class="spot-name">☕ Having Moment</span>
+                    <span class="info-tag">白淺灘海景</span>
+                    <div class="photo-gallery">
+                        <img src="having-moment-1.jpg" class="gallery-img">
+                        <img src="having-moment-2.jpg" class="gallery-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="day6">
+            <div class="content-card">
+                <h2>Day 6 西面購物</h2>
+                <div class="spot-item">
+                    <span class="spot-name">田浦咖啡街</span>
+                    <div class="photo-gallery">
+                        <img src="jeonpo-1.jpg" class="gallery-img">
+                        <img src="jeonpo-2.jpg" class="gallery-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="day7">
+            <div class="content-card">
+                <h2>Day 7 快樂賦歸</h2>
+                <div class="spot-item">
+                    <span class="spot-name">金海機場 ✈️</span>
+                    <p>回程航班：12:00 - 14:00</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>
-
