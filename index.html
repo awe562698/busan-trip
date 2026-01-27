@@ -3,43 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>釜山 7天6夜 療癒之旅</title>
+    <title>釜山最強 7D6N 行程表</title>
     <style>
         :root {
-            --card-bg: rgba(255, 255, 255, 0.94);
-            --primary-color: #3498db;
-            --link-bg: #27ae60;
+            --primary-blue: #5ba2e2;
+            --soft-blue: #e3f2fd;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-dark: #333;
         }
 
         body, html {
             margin: 0; padding: 0; height: 100%; width: 100%;
-            overflow: hidden;
-            font-family: "Microsoft JhengHei", sans-serif;
+            overflow: hidden; font-family: "Microsoft JhengHei", sans-serif;
+            background: #f0f7ff;
         }
 
+        /* 背景圖案 */
         .bg-fixed {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('busan-bg.jpg');
-            background-size: cover; background-position: center;
-            z-index: -1;
+            background: url('busan-bg.jpg') no-repeat center center/cover;
+            z-index: -1; filter: opacity(0.8);
         }
 
-        /* 底部導覽 */
+        /* 底部導航欄 */
         .nav-bar {
             position: fixed; bottom: 0; width: 100%;
-            background: rgba(255, 255, 255, 0.98);
-            display: flex; overflow-x: auto; padding: 12px 0;
-            box-shadow: 0 -2px 15px rgba(0,0,0,0.1);
-            z-index: 100;
+            background: #fff; display: flex; overflow-x: auto; padding: 10px 0;
+            box-shadow: 0 -2px 15px rgba(0,0,0,0.1); z-index: 100;
         }
         .nav-bar a {
-            flex: 0 0 auto; text-decoration: none; color: #555;
-            padding: 8px 15px; margin: 0 5px; border-radius: 15px;
-            font-size: 0.85em; background: #fff; border: 1px solid #ddd;
+            flex: 0 0 auto; text-decoration: none; color: #666;
+            padding: 8px 15px; margin: 0 5px; border-radius: 20px;
+            font-size: 0.85em; background: #f0f0f0; transition: 0.3s;
         }
-        .nav-bar a:active { background: var(--primary-color); color: white; }
+        .nav-bar a.active { background: var(--primary-blue); color: #fff; }
 
-        /* 主容器 (天數左右翻頁) */
+        /* 主滑動容器 */
         .slider-container {
             display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
             scroll-behavior: smooth; height: 100vh; width: 100vw;
@@ -49,80 +48,89 @@
         .page {
             flex: 0 0 100vw; height: 100vh; scroll-snap-align: start;
             display: flex; justify-content: center; align-items: center;
-            box-sizing: border-box; padding-bottom: 75px;
+            box-sizing: border-box; padding-bottom: 70px;
         }
 
+        /* 模擬圖片中的圓角卡片設計 */
         .content-card {
-            background: var(--card-bg); width: 90%; max-width: 500px;
-            height: 85%; padding: 20px; border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            overflow-y: auto;
+            background: var(--card-bg); width: 90%; max-width: 450px;
+            height: 82%; padding: 20px; border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow-y: auto; position: relative;
         }
 
-        h2 { color: var(--primary-color); border-left: 5px solid var(--primary-color); padding-left: 10px; margin: 15px 0; font-size: 1.3em; }
+        h1 { color: var(--primary-blue); text-align: center; font-size: 1.5em; margin-top: 0; }
+        .section-title { border-left: 5px solid var(--primary-blue); padding-left: 10px; font-weight: bold; margin: 15px 0; color: var(--primary-blue); }
 
-        .spot-item { margin-bottom: 35px; border-bottom: 1px solid #eee; padding-bottom: 25px; }
-        .spot-name { font-weight: bold; font-size: 1.15em; color: #333; display: block; margin-bottom: 8px; }
-        .info-tag { font-size: 0.8em; background: #f0f0f0; padding: 3px 8px; border-radius: 5px; color: #555; margin-right: 5px; display: inline-block; margin-bottom: 5px; }
+        /* 匯率計算機樣式 */
+        .tool-box { background: var(--soft-blue); padding: 15px; border-radius: 15px; margin-bottom: 20px; }
+        input { width: 80px; padding: 5px; border-radius: 5px; border: 1px solid #ccc; text-align: center; }
 
-        /* --- 多圖橫向滑動區 --- */
-        .photo-gallery {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            gap: 12px;
-            margin: 15px 0;
-            padding-bottom: 5px;
+        /* 行程打勾清單 Checklist */
+        .checklist-item { display: flex; align-items: center; margin-bottom: 10px; font-size: 0.95em; }
+        .checklist-item input[type="checkbox"] { margin-right: 10px; width: 18px; height: 18px; cursor: pointer; }
+
+        /* 照片橫向滑動區 */
+        .photo-gallery { display: flex; overflow-x: auto; gap: 10px; margin: 10px 0; padding-bottom: 5px; }
+        .gallery-img { flex: 0 0 80%; height: 180px; object-fit: cover; border-radius: 15px; }
+
+        /* 按鈕設計 */
+        .btn {
+            display: inline-flex; align-items: center; padding: 8px 12px;
+            border-radius: 10px; font-size: 0.85em; text-decoration: none; margin-top: 5px;
+            cursor: pointer; border: none;
         }
-        .photo-gallery::-webkit-scrollbar { height: 4px; }
-        .photo-gallery::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+        .btn-pass { background: #4caf50; color: white; }
+        .btn-taxi { background: #fbc02d; color: #333; font-weight: bold; }
+        .btn-map { background: #03c75a; color: white; }
 
-        .gallery-img {
-            flex: 0 0 85%; /* 顯示 85% 寬度，讓使用者知道右邊還有圖 */
-            scroll-snap-align: center;
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-        /* ------------------ */
-
-        .ref-link {
-            display: inline-flex; align-items: center;
-            background-color: var(--link-bg); color: white;
-            text-decoration: none; padding: 8px 16px; border-radius: 50px;
-            font-size: 0.85em; margin-top: 5px;
-        }
-        .ref-link::before { content: '🔗 '; margin-right: 5px; }
-
+        /* 隱藏捲動條 */
         .slider-container::-webkit-scrollbar, .nav-bar::-webkit-scrollbar { display: none; }
+
+        /* 彈窗顯示韓文地址 */
+        #taxiModal {
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: white; padding: 25px; border-radius: 20px; z-index: 1000;
+            width: 80%; max-width: 300px; text-align: center; box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; }
     </style>
 </head>
 <body>
 
     <div class="bg-fixed"></div>
 
-    <div class="nav-bar">
-        <a href="#day1">D1</a><a href="#day2">D2</a><a href="#day3">D3</a>
-        <a href="#day4">D4</a><a href="#day5">D5</a><a href="#day6">D6</a><a href="#day7">D7</a>
+    <div class="modal-overlay" onclick="closeTaxi()"></div>
+    <div id="taxiModal">
+        <h3 id="taxiTitle"></h3>
+        <p id="taxiAddr" style="font-size: 1.2em; color: #d32f2f; font-weight: bold;"></p>
+        <button onclick="closeTaxi()" style="padding: 10px 20px; border-radius: 10px; border: none;">關閉</button>
     </div>
 
-    <div class="slider-container">
+    <div class="nav-bar">
+        <a href="#intro" class="active">釜山介紹</a>
+        <a href="#day1">D1</a><a href="#day2">D2</a><a href="#day3">D3</a>
+        <a href="#day4">D4</a><a href="#day5">D5</a><a href="#day6">D6</a>
+    </div>
+
+    <div class="slider-container" id="mainSlider">
         
-        <div class="page" id="day1">
+        <div class="page" id="intro">
             <div class="content-card">
-                <h2>Day 1 抵達海雲台</h2>
-                <div class="spot-item">
-                    <span class="spot-name">海雲台傳統市場</span>
-                    <span class="info-tag">10:00-22:00</span>
-                    <div class="photo-gallery">
-                        <img src="haeundae-market-1.jpg" class="gallery-img">
-                        <img src="haeundae-market-2.jpg" class="gallery-img">
-                        <img src="haeundae-market-3.jpg" class="gallery-img">
-                    </div>
-                    <a href="https://www.visitbusan.net/zh/index.do?menuCd=DOM_000000302002001000&uc_seq=318" target="_blank" class="ref-link">市場攻略</a>
+                <h1>🌊 釜山自由行</h1>
+                <div class="tool-box">
+                    <strong>💰 匯率換算 (約 1:40)</strong><br>
+                    TWD <input type="number" id="twdInput" placeholder="台幣" oninput="calcKrw()"> ➔ 
+                    KRW <span id="krwOutput" style="font-weight: bold;">0</span>
                 </div>
+                <div class="section-title">📍 行前準備</div>
+                <div class="checklist-item"><input type="checkbox"> 4-5月天氣: 涼爽舒適</div>
+                <div class="checklist-item"><input type="checkbox"> 電壓: 220V (兩孔圓)</div>
+                <div class="checklist-item"><input type="checkbox"> 下載 Kakao T / Uber</div>
+                <div class="section-title">🎟️ Visit Busan Pass</div>
+                <p>啟動後 48 小時內景點免費</p>
+                <button class="btn btn-pass" id="passBtn" onclick="activatePass()">✅ 開通 Pass (48H)</button>
+                <p id="passTimer" style="color: #d32f2f; font-weight: bold; margin-top: 10px;"></p>
             </div>
         </div>
 
@@ -130,56 +138,35 @@
             <div class="content-card">
                 <h2>Day 2 青沙浦精華</h2>
                 <div class="spot-item">
-                    <span class="spot-name">青沙浦打卡三連彈</span>
-                    <span class="info-tag">平交道 / 天空步道 / 膠囊列車</span>
+                    <strong>15:00 海岸列車 (Beach Train)</strong>
                     <div class="photo-gallery">
-                        <img src="cheongsapo-crossing.jpg" class="gallery-img">
-                        <img src="cheongsapo-skywalk.jpg" class="gallery-img">
                         <img src="cheongsapo-capsule.jpg" class="gallery-img">
+                        <img src="cheongsapo-crossing.jpg" class="gallery-img">
                     </div>
-                    <a href="https://www.bluelinepark.com/" target="_blank" class="ref-link">預約列車</a>
+                    <button class="btn btn-taxi" onclick="showTaxi('青沙浦站', '청사포역')">🚕 給司機看</button>
+                    <a href="https://naver.me/G87WpL9I" target="_blank" class="btn btn-map">NeverMap</a>
                 </div>
-                <div class="spot-item">
-                    <span class="spot-name">海東龍宮寺</span>
-                    <span class="info-tag">絕美海邊寺廟</span>
-                    <div class="photo-gallery">
-                        <img src="yonggungsa-1.jpg" class="gallery-img">
-                        <img src="yonggungsa-2.jpg" class="gallery-img">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="page" id="day3">
-            <div class="content-card">
-                <h2>Day 3 SPA與遊艇</h2>
-                <div class="spot-item">
-                    <span class="spot-name">新世界 SPA LAND</span>
-                    <span class="info-tag">Centum City 站</span>
-                    <div class="photo-gallery">
-                        <img src="spa-land-1.jpg" class="gallery-img">
-                        <img src="spa-land-2.jpg" class="gallery-img">
-                    </div>
-                </div>
+                <div class="section-title">今日 Checklist</div>
+                <div class="checklist-item"><input type="checkbox"> 拍平交道灌籃高手照</div>
+                <div class="checklist-item"><input type="checkbox"> 青沙浦天空步道</div>
             </div>
         </div>
 
         <div class="page" id="day4">
             <div class="content-card">
-                <h2>Day 4 文化村與松島</h2>
+                <h2>Day 4 文化與松島</h2>
                 <div class="spot-item">
-                    <span class="spot-name">甘川洞文化村</span>
+                    <strong>甘川洞文化村</strong>
                     <div class="photo-gallery">
                         <img src="gamcheon-1.jpg" class="gallery-img">
-                        <img src="gamcheon-2.jpg" class="gallery-img">
-                        <img src="gamcheon-3.jpg" class="gallery-img">
                     </div>
+                    <button class="btn btn-taxi" onclick="showTaxi('甘川洞文化村', '감천문화마을')">🚕 給司機看</button>
+                    <a href="https://naver.me/FpM2Z1Xn" target="_blank" class="btn btn-map">NeverMap</a>
                 </div>
-                <div class="spot-item">
-                    <span class="spot-name">☕ Thrill on the Mug</span>
+                <div class="spot-item" style="margin-top: 20px;">
+                    <strong>☕ Thrill on the Mug</strong>
                     <div class="photo-gallery">
                         <img src="thrill-on-the-mug-1.jpg" class="gallery-img">
-                        <img src="thrill-on-the-mug-2.jpg" class="gallery-img">
                     </div>
                 </div>
             </div>
@@ -187,48 +174,81 @@
 
         <div class="page" id="day5">
             <div class="content-card">
-                <h2>Day 5 影島漫步</h2>
-                <div class="spot-item">
-                    <span class="spot-name">國際市場 / 札嘎其市場</span>
-                    <div class="photo-gallery">
-                        <img src="international-market.jpg" class="gallery-img">
-                        <img src="jagalchi.jpg" class="gallery-img">
-                    </div>
+                <h2>Day 5 再見釜山</h2>
+                <div id="passExpAlert" style="background: #fff3e0; padding: 10px; border-radius: 10px; font-size: 0.8em; margin-bottom: 15px;">
+                    ⌛ Pass 預計失效時間：<span id="expTimeDisplay">尚未開通</span>
                 </div>
                 <div class="spot-item">
-                    <span class="spot-name">☕ Having Moment</span>
-                    <span class="info-tag">白淺灘海景</span>
-                    <div class="photo-gallery">
-                        <img src="having-moment-1.jpg" class="gallery-img">
-                        <img src="having-moment-2.jpg" class="gallery-img">
-                    </div>
+                    <strong>金海機場採買</strong>
+                    <div class="checklist-item"><input type="checkbox"> 三進魚板 (Samjin Amook)</div>
+                    <div class="checklist-item"><input type="checkbox"> 超商零食補貨 (CU/GS25)</div>
+                    <button class="btn btn-taxi" onclick="showTaxi('金海機場', '김해공항 국제선')">🚕 給司機看</button>
                 </div>
-            </div>
-        </div>
-
-        <div class="page" id="day6">
-            <div class="content-card">
-                <h2>Day 6 西面購物</h2>
-                <div class="spot-item">
-                    <span class="spot-name">田浦咖啡街</span>
-                    <div class="photo-gallery">
-                        <img src="jeonpo-1.jpg" class="gallery-img">
-                        <img src="jeonpo-2.jpg" class="gallery-img">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="page" id="day7">
-            <div class="content-card">
-                <h2>Day 7 快樂賦歸</h2>
-                <div class="spot-item">
-                    <span class="spot-name">金海機場 ✈️</span>
-                    <p>回程航班：12:00 - 14:00</p>
+                <div class="section-title">☕ Having Moment</div>
+                <div class="photo-gallery">
+                    <img src="having-moment-1.jpg" class="gallery-img">
                 </div>
             </div>
         </div>
 
     </div>
+
+    <script>
+        // 匯率換算
+        function calcKrw() {
+            const twd = document.getElementById('twdInput').value;
+            document.getElementById('krwOutput').innerText = (twd * 41.5).toLocaleString();
+        }
+
+        // Busan Pass 計時器
+        function activatePass() {
+            if(confirm("確定要現在開通 48 小時 Pass 嗎？")) {
+                const now = new Date();
+                const exp = new Date(now.getTime() + (48 * 60 * 60 * 1000));
+                localStorage.setItem('busanPassExp', exp);
+                updatePassUI();
+            }
+        }
+
+        function updatePassUI() {
+            const expStr = localStorage.getItem('busanPassExp');
+            if (expStr) {
+                const expDate = new Date(expStr);
+                const options = { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                const formatted = expDate.toLocaleString('zh-TW', options);
+                document.getElementById('passTimer').innerText = "有效至: " + formatted;
+                document.getElementById('expTimeDisplay').innerText = formatted;
+                document.getElementById('passBtn').disabled = true;
+                document.getElementById('passBtn').innerText = "已開通";
+            }
+        }
+
+        // 計程車地址彈窗
+        function showTaxi(title, addr) {
+            document.getElementById('taxiTitle').innerText = title;
+            document.getElementById('taxiAddr').innerText = addr;
+            document.getElementById('taxiModal').style.display = 'block';
+            document.querySelector('.modal-overlay').style.display = 'block';
+        }
+
+        function closeTaxi() {
+            document.getElementById('taxiModal').style.display = 'none';
+            document.querySelector('.modal-overlay').style.display = 'none';
+        }
+
+        // 導航欄 Active 狀態切換
+        const links = document.querySelectorAll('.nav-bar a');
+        const container = document.getElementById('mainSlider');
+
+        container.addEventListener('scroll', () => {
+            const index = Math.round(container.scrollLeft / window.innerWidth);
+            links.forEach((link, i) => {
+                link.classList.toggle('active', i === index);
+            });
+        });
+
+        // 初始化
+        updatePassUI();
+    </script>
 </body>
 </html>
